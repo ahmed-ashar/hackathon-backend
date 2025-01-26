@@ -96,28 +96,25 @@ exports.deleteUser = async (req, res) => {
 // Get All Users (excluding Admins)
 exports.getAllUsers = async (req, res) => {
     try {
-        // Only Admin can access this route
-        if (req.user.role !== 'Admin') {
-            return res.status(403).json({ message: 'You do not have permission to perform this action' });
-        }
-
-        // Fetch all users except those with the 'Admin' role
-        const users = await User.find({ role: { $ne: 'Admin' } });
+        // Fetch all users
+        const users = await User.find();
 
         if (!users || users.length === 0) {
             return res.status(404).json({ message: 'No users found' });
         }
 
+        // Return users with only necessary fields
         res.status(200).json({
             message: 'Users fetched successfully.',
             users: users.map(user => ({
                 id: user._id,
                 name: user.name,
                 email: user.email,
-                role: user.role
+                role: user.role,
             })),
         });
     } catch (error) {
         res.status(400).json({ error: error.message });
     }
 };
+
