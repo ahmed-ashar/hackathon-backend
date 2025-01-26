@@ -160,3 +160,21 @@ exports.deleteBeneficiary = async (req, res) => {
         res.status(400).json({ error: error.message });
     }
 };
+exports.getAllBeneficiaries = async (req, res) => {
+    try {
+        // Find all beneficiaries in the database
+        const beneficiaries = await Beneficiary.find();
+
+        if (!beneficiaries || beneficiaries.length === 0) {
+            return res.status(404).json({ message: 'No beneficiaries found.' });
+        }
+
+        res.status(200).json({
+            message: 'All beneficiaries fetched successfully.',
+            users: beneficiaries, // Returning all beneficiaries
+        });
+    } catch (error) {
+        res.status(400).json({ error: error.message });
+    }
+};
+
