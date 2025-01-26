@@ -24,10 +24,10 @@ app.use('/api/beneficiaries', beneficiaryRoutes);
 
 app.put('/api/beneficiaries/editBeneficiary', authenticate, authorize(['Admin', 'Receptionist']), editBeneficiary);
 // DELETE /deleteBeneficiary
-app.delete('/api/beneficiaries/deleteBeneficiary', authenticate, authorize(['Admin']), deleteBeneficiary);
+app.delete('/api/beneficiaries/deleteBeneficiary', deleteBeneficiary);
 // app.use('/api/tokens', tokenRoutes);
 // GET /getAllUsers
-app.get('/api/auth/getAllUsers', authenticate, authorize(['Admin']), getAllUsers);
+app.get('/api/auth/getAllUsers',  getAllUsers);
 // PUT /editUser
 
 // DELETE /deleteUser
